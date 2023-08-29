@@ -1,0 +1,42 @@
+<button  *ngIf="header!.type == 'list'" (click)="showModal()" nz-button nzType="default">
+  <span nz-icon nzType="eye"></span>
+  {{value}}
+</button>
+<!--Normal View-->
+<div [style]="{color: value?'':'darkgrey'}"
+     *ngIf="header!.type == ''">
+  {{value?value:'لم يحدد'}}
+</div>
+<!--Online List-->
+<div [style]="{color: value?'':'darkgrey'}"
+     *ngIf="header!.type== 'online_list'">
+  {{value?value.name:'لم يحدد'}}
+</div>
+<!--Status-->
+<nz-tag *ngIf="header!.type == 'tag'" [nzColor]="value == '1'?
+'green':'red'">
+  {{value == '1'?'نشط':'معلق'}}
+</nz-tag>
+<!--Gender-->
+<nz-tag *ngIf="header!.type == 'fill_tag'"
+        [nzColor]="value == '1'?'#108ee9':'rgba(255,128,0,0.59)'"
+>{{ value == "1"?"ذكر":"انثى"}}
+</nz-tag>
+
+
+
+
+<div *ngIf="header.type == 'list' && isVisible" >
+  <nz-modal
+    [nzStyle]="{width: '80%'}"
+    [(nzVisible)]="isVisible"
+    nzTitle="{{record.name}} > {{header.innerModel.title}}"
+    [nzFooter]="null"
+    (nzOnCancel)="handleCancel()"
+  >
+    <ng-container *nzModalContent>
+<!--      <app-table-data [tableData]="header.innerModel" [foreignId]="record.doc_id" />-->
+      <app-table-data [foreignId]="record.doc_id" />
+    </ng-container>
+  </nz-modal>
+</div>
