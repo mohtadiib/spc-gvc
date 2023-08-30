@@ -1,18 +1,25 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {TableDataService} from "../../../components/table-data/table-data.service";
-import {User} from "../teacher";
-import {TableData} from "../../../components/table-data/data_table";
+import {SideModel, TableData} from "../../../common/data_sources/side-model";
+import DataSources from "../../../common/data_sources/data-sources";
 
 @Component({
   selector: 'app-view-teacher',
   templateUrl: './view-teacher.component.html',
   styleUrls: ['./view-teacher.component.css']
 })
-export class ViewTeacherComponent{
+export class ViewTeacherComponent implements OnInit{
   docId!:string
-  user:User = {}
-  constructor(private activatedRoute: ActivatedRoute, public tableDataService:TableDataService) {}
+  user:any = {}
+  tableData: TableData = {}
+  sideBarList: SideModel[] = new DataSources().pagesDataTable;
+  constructor(private activatedRoute: ActivatedRoute, public tableDataService:TableDataService) {
+    activatedRoute.paramMap.subscribe((params:any) => {
+      let index = params.get('index');
+      this.tableData = this.sideBarList[0].submenu[index].tableData
+    });
+  }
 
   tabs = [
     {
@@ -27,44 +34,29 @@ export class ViewTeacherComponent{
     }
   ];
 
-  tableData: TableData = {
-    title: "المقررات",
-    router: { main:"/teacher_courses"},
-
-    customApiBody: {
-      table:"teacher_courses",
-      foreignField: { teacher_id:"", foreignKeys: ["course_id","class_id"] },
-      inner_tables:["courses","classes"]
-    },
-    headers: [
-      { name: "اسم الكورس", type: "online_list", innerTableName: "courses" },
-      { name: "اسم الفصل", type: "online_list", innerTableName: "classes" },
-    ],
-    model:{
-      doc_id: '',
-      course_id: {
-        name: "",
-        doc_id: ""
-      },
-      class_id: {
-        name: "",
-        doc_id: ""
-      },
-    }
-  }
   // tableData: TableData = {
   //   title: "المقررات",
   //   router: { main:"/teacher_courses"},
-  //   customApiBody:{table:"teacher_courses",
-  //     foreignField: { teacher_id: "", course_id: ''}},
+  //
+  //   customApiBody: {
+  //     table:"teacher_courses",
+  //     foreignField: { teacher_id:"", foreignKeys: ["course_id","class_id"] },
+  //     inner_tables:["courses","classes"]
+  //   },
   //   headers: [
   //     { name: "اسم الكورس", type: "online_list", innerTableName: "courses" },
-  //     { name: "اسم الفصل", type: ""},
+  //     { name: "اسم الفصل", type: "online_list", innerTableName: "classes" },
   //   ],
   //   model:{
   //     doc_id: '',
-  //     course_id: '',
-  //     class_id: '',
+  //     course_id: {
+  //       name: "",
+  //       doc_id: ""
+  //     },
+  //     class_id: {
+  //       name: "",
+  //       doc_id: ""
+  //     },
   //   }
   // }
 
@@ -83,16 +75,3 @@ export class ViewTeacherComponent{
     })
   }
 }
-
-// {
-//   name: 'الفصول',
-//   icon: 'bulb'
-// },
-// {
-//   name: 'الصلاحيات',
-//   icon: 'login'
-// },
-// {
-//   name: 'كلمة المرور',
-//   icon: 'lock'
-// },

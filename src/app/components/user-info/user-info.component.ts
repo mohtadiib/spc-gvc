@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {User} from "../../pages/teachers/teacher";
 
 @Component({
   selector: 'app-user-info',
@@ -7,7 +6,7 @@ import {User} from "../../pages/teachers/teacher";
   styleUrls: ['./user-info.component.css']
 })
 export class UserInfoComponent implements OnInit{
-  @Input() user!:User
+  @Input() user!:any
 
   divValue:string = ''
 

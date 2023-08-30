@@ -10,7 +10,11 @@
         </ng-template>
 <!--        <app-user-info [user]="user" *ngIf="tab.component == 'user_info'"/>-->
 <!--        <app-user-info [user]="user" *ngIf="tab.component == 'courses'"/>-->
-<!--        <app-table-data *ngIf="tab.component == 'courses'" [foreignId]="docId"/>-->
+        <app-table-data
+          [inputTableData]="tableData"
+          *ngIf="tab.component == 'courses'"
+                        [foreignId]="docId"
+        />
       </nz-tab>
     </nz-tabset>
   </div>

@@ -15,8 +15,8 @@
         *ngFor="let siteItem of sideBarList" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzOpen [nzTitle]="siteItem.title" [nzIcon]="siteItem.icon">
         <ul *ngFor="let subItem of siteItem.submenu">
-          <li (click)="changeIndex(subItem.index)" nz-menu-item nzMatchRouter>
-            <a [routerLink]="subItem.router">{{subItem.title}}</a>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="subItem.router+'/'+subItem.index">{{subItem.title}}</a>
           </li>
         </ul>
       </li>
@@ -35,7 +35,7 @@
     </nz-header>
     <nz-content>
       <div class="inner-content">
-         <app-pages [index]="index"/>
+         <router-outlet></router-outlet>
       </div>
     </nz-content>
   </nz-layout>

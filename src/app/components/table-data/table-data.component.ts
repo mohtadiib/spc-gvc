@@ -1,7 +1,7 @@
 import {Component, HostListener, Input, OnChanges, OnInit } from '@angular/core';
 import {TableDataService} from "./table-data.service";
 import { FormGroup } from "@angular/forms";
-import {TableData} from "./data_table";
+import {TableData} from "../../common/data_sources/side-model";
 
 
 @Component({
@@ -22,7 +22,7 @@ export class TableDataComponent implements OnInit, OnChanges{
   constructor(public tableApiService:TableDataService) {}
   // modelData = () => this.tableData2[this.index];
   ngOnInit(): void {
-    this.getData()
+    // this.getData()
   }
   ngOnChanges(): void {
     this.getData()
@@ -38,7 +38,6 @@ export class TableDataComponent implements OnInit, OnChanges{
     // console.log(JSON.stringify(body))
     this.tableApiService.getData(body).subscribe(res=>{
       this.listOfData = res;
-      console.log(this.listOfData)
       this.updateEditCache();
     })
   }

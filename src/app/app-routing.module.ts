@@ -1,19 +1,31 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ViewTeacherComponent} from "./pages/teachers/view-teacher/view-teacher.component";
 import {PagesComponent} from "./pages/pages/pages.component";
+import {SideModel} from "./common/data_sources/side-model";
+import DataSources from "./common/data_sources/data-sources";
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/classes' },
-  { path: 'courses', component: PagesComponent },
-  { path: 'classes', component: PagesComponent },
-  { path: 'teachers', component: PagesComponent },
-  { path: 'view_teacher/:id', component: ViewTeacherComponent },
-  { path: 'subjects', component: PagesComponent },
+  { path: '', pathMatch: 'full', redirectTo: '/courses/0' },
+  // { path: '**', redirectTo: '/courses/0' },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+  sideBarList: SideModel[] = new DataSources().pagesDataTable;
+  constructor() {
+    this.getRoute()
+  }
+  getRoute(com:any = PagesComponent){
+    this.sideBarList[0].submenu.forEach(value => {
+      if (value.component){
+        routes.push({path:value.path,component:value.component})
+      }else {
+        routes.push({path:value.path,component:com})
+      }
+    })
+  }
+}
