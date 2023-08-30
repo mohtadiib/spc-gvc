@@ -9,7 +9,7 @@ import DataSources from "./common/data_sources/data-sources";
 export class AppComponent {
   isCollapsed = false;
   title!: "School System";
-  index:number = 0
+  index:number = 1
   sideBarList: SideModel[] = new DataSources().pagesDataTable;
   // sideBarList: any[] =  [
   //   {
