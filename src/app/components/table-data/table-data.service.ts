@@ -7,12 +7,10 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class TableDataService {
-
-
-  tableName:string = "courses"
+  focusField:boolean = false
   constructor(private http:HttpClient) { }
   getData(body:any,method:string = ""): Observable<any[]>{
-    // console.log(body)
+    console.log(JSON.stringify(body))
     return this.http.post<any[]>(GlobalVariable.BASE_API_URL+method,body);
   }
   saveData(table:any,adding:boolean,data:any){

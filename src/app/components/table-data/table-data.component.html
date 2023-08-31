@@ -6,7 +6,7 @@
 </button>
 <br />
 <br />
-<nz-table #editRowTable nzBordered [nzData]="listOfData" nzTableLayout="fixed">
+<nz-table #editRowTable nzBordered [nzData]="listOfData" [nzPageSize]="10" [nzScroll]="{ y: '700px' }">
   <thead>
   <tr>
     <th *ngFor="let item of tableData.headers">

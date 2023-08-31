@@ -5,7 +5,7 @@ import {SideModel} from "./common/data_sources/side-model";
 import DataSources from "./common/data_sources/data-sources";
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/courses/0' },
+  { path: '', pathMatch: 'full', redirectTo: `${new DataSources().pagesDataTable[0].submenu[0].router}/0` /*'/courses/0'*/ },
   // { path: '**', redirectTo: '/courses/0' },
 ];
 

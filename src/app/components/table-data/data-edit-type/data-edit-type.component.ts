@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {FormGroup, ControlContainer, FormGroupDirective, FormControl} from '@angular/forms';
 import {TableDataService} from "../table-data.service";
 
@@ -13,15 +13,14 @@ import {TableDataService} from "../table-data.service";
     }
   ]
 })
-export class DataEditTypeComponent implements OnInit{
+export class DataEditTypeComponent implements OnInit, AfterViewInit{
+  @ViewChild('input') inputElement!: ElementRef;
   @Input() keyItem!: any;
   @Input() value!: any;
   @Input() header!: any;
   form!: FormGroup;
   choicesList: any[] = []
-
   constructor(private parent: FormGroupDirective, public tableDataService:TableDataService) {}
-
   ngOnInit() {
     this.form = this.parent.form;
     if (this.form.get(this.keyItem)){
@@ -58,7 +57,12 @@ export class DataEditTypeComponent implements OnInit{
   checkType(value:string){
     return this.header.type == value
   }
-
   getTypeof =(value:any)=>typeof value
+  ngAfterViewInit() {
+    if (this.inputElement && !this.tableDataService.focusField){
+      this.tableDataService.focusField = true
+      this.inputElement.nativeElement.focus();
+    }
+  }
 
 }

@@ -18,12 +18,14 @@ import {NzInputModule} from "ng-zorro-antd/input";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {TableDataModule} from "./components/table-data/table-data.module";
+import { PosComponent } from './pages/pos/pos.component';
 
 registerLocaleData(ar);
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        PosComponent
     ],
     imports: [
         TableDataModule,

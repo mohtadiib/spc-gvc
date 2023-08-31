@@ -54,6 +54,8 @@ export class TableDataComponent implements OnInit, OnChanges{
       data
     ).subscribe((res)=>{
       console.log(res)
+      //close focusing input
+      this.tableApiService.focusField = false
       this.editCache[doc_id].edit = false;
       this.editingObject.adding = false;
       this.editingObject.recordId = ''
@@ -78,6 +80,8 @@ export class TableDataComponent implements OnInit, OnChanges{
     }
   }
   cancelEdit(doc_id: string): void {
+    //close focusing input
+    this.tableApiService.focusField = false
     const index = this.listOfData.findIndex(item => item.doc_id === doc_id);
     this.editCache[doc_id] = {
       data: { ...this.listOfData[index] },
@@ -125,7 +129,7 @@ export class TableDataComponent implements OnInit, OnChanges{
   @HostListener('window:keydown.control.n', ['$event'])
   public handleKeyboardEvent (event: any) {
       event.preventDefault();
-      if (!this.editingObject.recordId){
+      if (!this.editingObject.adding){
         this.addRow()
       }
   }
