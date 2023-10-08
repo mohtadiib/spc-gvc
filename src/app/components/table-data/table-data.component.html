@@ -1,18 +1,24 @@
-<button nz-button (click)="checkEditing()?saveEdit(editingObject.recordId):addRow()"
+<button nz-button *ngIf="!tableData.customCrud || tableData.customCrud && tableData.customCrud.includes('add')" (click)="checkEditing()?saveEdit(editingObject.recordId):addRow()"
         nzType="primary">
   {{checkEditing()?"تحديث":"اضافة جديد"}}
   <span nz-icon nzType="{{checkEditing()?'edit':'plus'}}" nzTheme="outline"
         style="font-size: 16px;color: #ffffff;"></span>
 </button>
+<button nz-button *ngIf="tableData.customCrud && tableData.customCrud.includes('return')"
+        (click)="getReturn()"
+        nzType="default">
+  {{returned()?"رجوع للمبيعات":"ذهاب للراجع"}}
+  <span nz-icon nzType="{{returned()?'check':'undo'}}" nzTheme="outline"></span>
+</button>
 <br />
 <br />
-<nz-table #editRowTable nzBordered [nzData]="listOfData" [nzPageSize]="10" [nzScroll]="{ y: '700px' }">
+<nz-table #editRowTable nzBordered [nzData]="listOfData" [nzPageSize]="10">
   <thead>
   <tr>
     <th *ngFor="let item of tableData.headers">
       {{item.name}}
     </th>
-    <th>اجراء</th>
+    <th *ngIf="!tableData.customCrud || tableData.customCrud?.length! > 0">اجراء</th>
   </tr>
   </thead>
   <tbody>
@@ -25,17 +31,20 @@
           [record]="data"
         />
       </td>
-      <td>
+      <td *ngIf="!tableData.customCrud || tableData.customCrud?.length! > 0">
         <a *ngIf="tableData.router!.second" [routerLink]="tableData.router!.second+'/'+data.doc_id">
           <span nz-icon nzType="eye" nzTheme="outline" style="font-size: 18px;color: gray"></span>
         </a>
         <nz-divider nzType="vertical"></nz-divider>
-        <a (click)="startEdit(data.doc_id!)">
+        <a *ngIf="!tableData.customCrud || tableData.customCrud && tableData.customCrud.includes('edit')" (click)="startEdit(data.doc_id!)">
           <span nz-icon nzType="edit" nzTheme="fill" style="font-size: 18px;"></span>
         </a>
         <nz-divider nzType="vertical"></nz-divider>
-        <a (click)="deleteRow(data.doc_id!)">
+        <a *ngIf="!tableData.customCrud || tableData.customCrud && tableData.customCrud.includes('delete')" (click)="deleteRow(data.doc_id!)">
           <span nz-icon nzType="delete" nzTheme="fill" style="font-size: 18px; color: #ff0000;"></span>
+        </a>
+        <a *ngIf="tableData.customCrud && tableData.customCrud.includes('return')" (click)="returnRow(data.doc_id!)">
+          <span nz-icon nzType="undo" nzTheme="outline">ارجاع</span>
         </a>
       </td>
     </ng-container>

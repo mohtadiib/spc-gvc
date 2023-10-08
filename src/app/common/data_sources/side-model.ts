@@ -3,6 +3,7 @@ import {Component} from "@angular/core";
 export interface SideModel {
   title: string;
   icon: string;
+  router:string,
   submenu: SubMenuModel[]
 }
 export interface SubMenuModel {
@@ -21,6 +22,7 @@ export interface TableData {
   table?:  string;
   foreignField?:  string;
   customApiBody?:any
+  customCrud?:string[],
   customHeaders?:any
   headers?:any[];
   model?:any

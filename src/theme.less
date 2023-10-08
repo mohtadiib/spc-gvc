@@ -2,13 +2,20 @@
 // Custom Theming for NG-ZORRO
 // For more information: https://ng.ant.design/docs/customize-theme/en
 @import "../node_modules/ng-zorro-antd/ng-zorro-antd.less";
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  font-family: 'shamel'; /*a name to be used later*/
+  src: url('assets/font/Shamel.ttf'); /*URL to font*/
+}
 // Override less variables to here
 // View all variables: https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/components/style/themes/default.less
 
  @primary-color: #389d11;
 
 body{
+  font-family: "shamel", serif;
   direction: rtl;
   text-align: right;
 }
@@ -23,4 +30,8 @@ body{
 }
 .ant-tabs-tabpane{
   height: 460px;
+}
+
+.en-font{
+  font-family: "Arial Rounded MT Bold",'sans-serif';
 }

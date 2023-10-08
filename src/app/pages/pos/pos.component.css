@@ -83,8 +83,11 @@
   color: #006064;
 }
 
+.bg-blue-gray-20, .hover\:bg-blue-gray-50:hover {
+  background-color: #f8f8f8;
+}
 .bg-blue-gray-50, .hover\:bg-blue-gray-50:hover {
-  background-color: #eceff1;
+  background-color: transparent;
 }
 .bg-blue-gray-100, .hover\:bg-blue-gray-100:hover {
   background-color: #cfd8dc;
@@ -206,6 +209,14 @@
   color: #004d40;
 }
 
+.bottom-border{
+  border-bottom: #dbdbdb solid 1px;
+}
+.border-right{
+  border-right: #dbdbdb solid 1px;
+  border-left: #dbdbdb solid 1px;
+}
+
 .nowrap {
   white-space: nowrap;
 }
@@ -231,4 +242,9 @@ table td {
     display: block;
   }
 }
-
+.img-item {
+  max-width: 100%;
+  height: 171px;
+  margin: auto;
+  padding: 5px;
+}

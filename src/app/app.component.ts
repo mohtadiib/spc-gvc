@@ -1,53 +1,31 @@
 import { Component } from '@angular/core';
 import {SideModel} from "./common/data_sources/side-model";
 import DataSources from "./common/data_sources/data-sources";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AuthService} from "./services/auth.service";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  constructor(private router: Router,public authService:AuthService) {
+    console.log(this.router.url)
+  }
   isCollapsed = false;
   title!: "School System";
-  index:number = 1
-  sideBarList: SideModel[] = new DataSources().pagesDataTable;
-  // sideBarList: any[] =  [
-  //   {
-  //     title:"الرئيسية",
-  //     icon:"dashboard",
-  //     submenu: <TableData>[
-  //       {
-  //         title: "المقررات",
-  //         router: "/courses",
-  //         index: 0
-  //       },
-  //       {
-  //         title: "الفصول الدراسية",
-  //         router: "/classes",
-  //         index: 1
-  //       },
-  //       {
-  //         title: "المعلمين",
-  //         router: "/teachers",
-  //         index: 2
-  //       },
-  //       {
-  //         title: "الطلاب",
-  //         router: "/subjects",
-  //         index: 3
-  //       },
-  //     ]
-  //   }
-  //   // {
-  //   //   title:"Settings",
-  //   //   icon:"form",
-  //   //   submenu:[
-  //   //     {
-  //   //       title: "Basic Form",
-  //   //       router: "/settings",
-  //   //       table:"settings",
-  //   //     }
-  //   //   ]
-  //   // },
-  // ];
+  sideBarList: any[] = new DataSources().pagesDataTable;
+  getRoute = () => this.router.url
+  logged = () => this.router.url == '/login'
+  checkRoute(){
+    console.log(this.router.url)
+    switch (this.router.url) {
+      case "/pos/3":
+        this.isCollapsed = true;
+        break;
+      default:
+        this.isCollapsed = false;
+        break;
+    }
+  }
 }

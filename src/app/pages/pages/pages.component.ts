@@ -10,13 +10,13 @@ import {SideModel, TableData} from "../../common/data_sources/side-model";
 export class PagesComponent implements OnInit{
   // @Input() index!:number
   index!:number
-  sideBarList: SideModel[] = new DataSources().pagesDataTable;
+  sideBarList: any[] = new DataSources().pagesDataTable;
   tableData: TableData = {}
   constructor(private activatedRoute: ActivatedRoute) {}
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params:any) => {
       this.index = params.get('index');
-      this.tableData = this.sideBarList[0].submenu[this.index].tableData
+      this.tableData = this.sideBarList[this.index].tableData
     });
   }
 }

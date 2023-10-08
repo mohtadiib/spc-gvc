@@ -1,5 +1,5 @@
 <div>
-    <input #input *ngIf="header.type == ''"
+    <input #input *ngIf="header.type == '' || header.type == 'image_view'"
            [placeholder]="value == undefined?0:''"
            [formControlName] = "keyItem"
            type="text" nzSize="large" nz-input

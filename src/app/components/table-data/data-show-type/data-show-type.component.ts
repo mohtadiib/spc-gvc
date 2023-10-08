@@ -16,6 +16,5 @@ export class DataShowTypeComponent{
   }
   handleCancel(): void {
     this.isVisible = false;
-
   }
 }

@@ -12,6 +12,7 @@ import {TableData} from "../../common/data_sources/side-model";
 export class TableDataComponent implements OnInit, OnChanges{
   form = new FormGroup({});
   index:number = 0
+  whereValue!:string
   @Input() inputTableData!: TableData;
   @Input() foreignId!: string;
   tableData!:TableData
@@ -34,8 +35,8 @@ export class TableDataComponent implements OnInit, OnChanges{
     this.listOfData = []
     this.keysEditModel = Object.keys(this.tableData.model);
     this.keysEditModel.splice(0,1)
-    let body = this.checkCustomApi(false)
-    // console.log(JSON.stringify(body))
+    let body = this.checkCustomApi()
+    console.log(JSON.stringify(body))
     this.tableApiService.getData(body).subscribe(res=>{
       this.listOfData = res;
       this.updateEditCache();
@@ -45,7 +46,7 @@ export class TableDataComponent implements OnInit, OnChanges{
     const index = this.listOfData.findIndex(item => item.doc_id === doc_id);
     Object.assign(this.listOfData[index], this.editCache[doc_id].data);
     //get inner Table name from headers
-    let body = this.checkCustomApi(true)
+    let body = this.checkCustomApi()
     let data: any = this.form.value
     data.id = this.listOfData[index].id
     this.tableApiService.saveData(
@@ -113,15 +114,18 @@ export class TableDataComponent implements OnInit, OnChanges{
     this.updateEditCache();
     this.startEdit('');
   }
-  checkCustomApi(unput:boolean){
-    let body = {table:this.tableData.table}
-    if (this.tableData.customApiBody?.foreignField && this.foreignId){
+  checkCustomApi(){
+    let body:any = {table:this.tableData.table}
+    if (this.tableData.customApiBody?.foreignKey && this.foreignId){
       let apiBody = this.tableData.customApiBody
-      apiBody.foreignField[Object.keys(apiBody.foreignField)[0]] = this.foreignId
+      apiBody.foreignKey[Object.keys(apiBody.foreignKey)[0]] = this.foreignId
       // apiBody.innerTable = innerTableName
       body = apiBody
     }else if(this.tableData.customApiBody){
-      body = unput?this.tableData.customApiBody.table:this.tableData.customApiBody
+      body = this.tableData.customApiBody
+    }
+    if (body.where && this.whereValue){
+      body.where.value = this.whereValue
     }
     return body
   }
@@ -140,5 +144,32 @@ export class TableDataComponent implements OnInit, OnChanges{
   }
   //Check Editing for change add button
   checkEditing = () => this.editingObject.recordId || this.editingObject.adding
+  returned = () => this.whereValue == "1"
+
+
+  returnRow(doc_id: string): void {
+    const index = this.listOfData.findIndex(item => item.doc_id === doc_id);
+    let body = this.checkCustomApi()
+    let data: any = {}
+    data.id = this.listOfData[index].id;
+    data.returned = 1;
+    this.tableApiService.saveData(
+      body!,
+      false,
+      data
+    ).subscribe((res)=>{
+      console.log(res)
+      this.getData()
+    })
+  }
+
+  getReturn() {
+    if (this.whereValue == "1"){
+      this.whereValue = '0'
+    }else {
+      this.whereValue = '1'
+    }
+    this.getData()
+  }
 }
 

@@ -1,29 +1,25 @@
 <nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
-            nzCollapsible
-            nzWidth="256px"
-            nzBreakpoint="md"
-            [(nzCollapsed)]="isCollapsed"
-            [nzTrigger]="null">
+  <nz-sider *ngIf="!logged()" nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
     <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>POS SYSTEM</h1>
+<!--        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">-->
+        <h1>Alaman Cpanel</h1>
       </a>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline"
-        *ngFor="let siteItem of sideBarList" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen [nzTitle]="siteItem.title" [nzIcon]="siteItem.icon">
-        <ul *ngFor="let subItem of siteItem.submenu">
-          <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="subItem.router+'/'+subItem.index">{{subItem.title}}</a>
-          </li>
-        </ul>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li (click)="checkRoute()" *ngFor="let siteItem of sideBarList" nz-menu-item>
+        <span nz-icon [nzType]="siteItem.icon"></span>
+        <span [className]="siteItem.title == 'POS'?'en-font':''">{{siteItem.title}}</span>
+        <a [routerLink]="siteItem.router+'/'+siteItem.index"></a>
       </li>
     </ul>
+    <button (click)="authService.logout()" nz-button nzType="text" nzDanger>
+      <span nz-icon nzType="logout"></span>
+      <span *ngIf="getRoute() != '/pos/3'">تسجل خروج</span>
+    </button>
   </nz-sider>
   <nz-layout>
-    <nz-header>
+    <nz-header *ngIf="getRoute() != '/pos/3' && !logged()">
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
             <span class="trigger"
@@ -34,7 +30,7 @@
       </div>
     </nz-header>
     <nz-content>
-      <div class="inner-content">
+      <div [class]="getRoute() == '/pos/3'?'inner-content-pos':'inner-content'">
          <router-outlet></router-outlet>
       </div>
     </nz-content>
