@@ -1,0 +1,58 @@
+.cards {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 1rem;
+}
+
+/* Screen larger than 600px? 2 column */
+@media (min-width: 600px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Screen larger than 900px? 3 columns */
+@media (min-width: 900px) {
+  .cards { grid-template-columns: repeat(3, 1fr); }
+}
+
+.cards .card {
+  background-color: #ffffff;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #818181;
+  padding: 1rem 1rem 4rem 1rem ;
+  display: flex;
+  height: 4rem;
+  cursor: pointer;
+}
+
+.cards .card:hover{
+  background-color: #f2ffee;
+}
+
+
+.cards .card div{
+  font-size: 20px;
+  width: 90%;
+}
+.cards .card div div:first-child{
+  color: #389d11;
+}
+
+.cards .card div div:last-child{
+  font-size: 12px;
+  padding-top: 1%;
+}
+
+[nz-icon] {
+  margin-right: 6px;
+  font-size: 24px;
+}
+
+
+.ng-tns-c57-0 .ng-star-inserted{
+  font-size: 9px;
+  font-weight: normal;
+}
+

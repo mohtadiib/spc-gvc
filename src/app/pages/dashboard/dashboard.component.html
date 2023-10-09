@@ -1,0 +1,46 @@
+<div class="cards">
+  <div class="card">
+    <div>
+      <div>
+        {{totals.products}}
+      </div>
+      <div>
+        عدد الاصناف
+      </div>
+    </div>
+    <span nz-icon nzType="compress"></span>
+  </div>
+  <div class="card">
+    <div>
+      <div>
+        {{totals.sales.total}}
+      </div>
+      <div>
+        اجمالي المبيعات
+      </div>
+    </div>
+    <span nz-icon nzType="shopping-cart"></span>
+  </div>
+  <div class="card">
+    <div>
+      <div>
+        {{totals.outputs.total ?? 0}}
+      </div>
+      <div>
+        اجمالي المنصرفات
+      </div>
+    </div>
+    <span nz-icon nzType="switcher"></span>
+  </div>
+  <div *ngIf="!reportPage" (click)="showConfirm()" class="card">
+    <div>
+      <div>
+        اغلاق الوردية
+      </div>
+      <div>
+        سيتم تخزين هذا السجل في نافذة الايرادات
+      </div>
+    </div>
+    <span nz-icon nzType="logout"></span>
+  </div>
+</div>

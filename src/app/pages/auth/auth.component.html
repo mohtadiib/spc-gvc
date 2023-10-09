@@ -1,0 +1,21 @@
+<div class="login-container">
+  <div class="login">
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="ادخل رقم الهاتف!">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="number" nz-input formControlName="phone" nzSize="large" placeholder="رقم الهاتف" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="ادخل كلمة المرور!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="password" nzSize="large" placeholder="كلمة المرور" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <button nzSize="large" nz-button class="login-form-button login-form-margin" [nzType]="'primary'">تسجيل دخول</button>
+    </form>
+  </div>
+</div>
