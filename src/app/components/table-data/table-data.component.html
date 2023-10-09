@@ -1,24 +1,19 @@
-<button nz-button *ngIf="!tableData.customCrud || tableData.customCrud && tableData.customCrud.includes('add')" (click)="checkEditing()?saveEdit(editingObject.recordId):addRow()"
+<button nz-button (click)="checkEditing()?saveEdit(editingObject.recordId):
+tableData.modelAddType?showModal():addRow()"
         nzType="primary">
   {{checkEditing()?"تحديث":"اضافة جديد"}}
   <span nz-icon nzType="{{checkEditing()?'edit':'plus'}}" nzTheme="outline"
         style="font-size: 16px;color: #ffffff;"></span>
 </button>
-<button nz-button *ngIf="tableData.customCrud && tableData.customCrud.includes('return')"
-        (click)="getReturn()"
-        nzType="default">
-  {{returned()?"رجوع للمبيعات":"ذهاب للراجع"}}
-  <span nz-icon nzType="{{returned()?'check':'undo'}}" nzTheme="outline"></span>
-</button>
 <br />
 <br />
-<nz-table #editRowTable nzBordered [nzData]="listOfData" [nzPageSize]="10">
+<nz-table #editRowTable nzBordered [nzData]="listOfData" [nzPageSize]="10" [nzScroll]="{ y: '700px' }">
   <thead>
   <tr>
     <th *ngFor="let item of tableData.headers">
       {{item.name}}
     </th>
-    <th *ngIf="!tableData.customCrud || tableData.customCrud?.length! > 0">اجراء</th>
+    <th>اجراء</th>
   </tr>
   </thead>
   <tbody>
@@ -31,20 +26,17 @@
           [record]="data"
         />
       </td>
-      <td *ngIf="!tableData.customCrud || tableData.customCrud?.length! > 0">
+      <td>
         <a *ngIf="tableData.router!.second" [routerLink]="tableData.router!.second+'/'+data.doc_id">
-          <span nz-icon nzType="eye" nzTheme="outline" style="font-size: 18px;color: gray"></span>
+          <span nz-icon nzType="eye" nzTheme="outline" style="font-size: 18px;color: #808080FF"></span>
         </a>
         <nz-divider nzType="vertical"></nz-divider>
-        <a *ngIf="!tableData.customCrud || tableData.customCrud && tableData.customCrud.includes('edit')" (click)="startEdit(data.doc_id!)">
+        <a (click)="startEdit(data.doc_id!)">
           <span nz-icon nzType="edit" nzTheme="fill" style="font-size: 18px;"></span>
         </a>
         <nz-divider nzType="vertical"></nz-divider>
-        <a *ngIf="!tableData.customCrud || tableData.customCrud && tableData.customCrud.includes('delete')" (click)="deleteRow(data.doc_id!)">
+        <a (click)="deleteRow(data.doc_id!)">
           <span nz-icon nzType="delete" nzTheme="fill" style="font-size: 18px; color: #ff0000;"></span>
-        </a>
-        <a *ngIf="tableData.customCrud && tableData.customCrud.includes('return')" (click)="returnRow(data.doc_id!)">
-          <span nz-icon nzType="undo" nzTheme="outline">ارجاع</span>
         </a>
       </td>
     </ng-container>
@@ -68,3 +60,40 @@
   </tbody>
 </nz-table>
 <br />
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="سجل جديد" (nzOnCancel)="handleCancel()"
+          (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="form" (ngSubmit)="submitForm()">
+      <nz-form-item *ngFor="let keyItem of keysEditModel; let i = index">
+        <nz-form-label [nzSpan]="5" nzRequired nzFor="{{keyItem}}">{{tableData.headers![i].name}}</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzErrorTip="Please input your username!">
+          <app-data-edit-type
+            [header]="tableData.headers![i]"
+            [value]="editingObject.recordId?
+            editCache[editingObject.recordId].data[keyItem]:''"
+            [keyItem]="keyItem"
+          ></app-data-edit-type>
+        </nz-form-control>
+      </nz-form-item>
+      <!--      <nz-form-item>-->
+      <!--        <nz-form-label [nzSpan]="5" nzFor="gender" nzRequired>Gender</nz-form-label>-->
+      <!--        <nz-form-control [nzSpan]="12" nzErrorTip="Please select your gender!">-->
+      <!--          <nz-select-->
+      <!--            id="gender"-->
+      <!--            formControlName="gender"-->
+      <!--            nzPlaceHolder="Select a option and change input text above"-->
+      <!--          >-->
+      <!--            <nz-option nzValue="male" nzLabel="male"></nz-option>-->
+      <!--            <nz-option nzValue="female" nzLabel="female"></nz-option>-->
+      <!--          </nz-select>-->
+      <!--        </nz-form-control>-->
+      <!--      </nz-form-item>-->
+      <!--      <nz-form-item>-->
+      <!--        <nz-form-control [nzSpan]="12" [nzOffset]="5">-->
+      <!--          <button nz-button nzType="primary">Submit</button>-->
+      <!--        </nz-form-control>-->
+      <!--      </nz-form-item>-->
+    </form>
+  </ng-container>
+</nz-modal>

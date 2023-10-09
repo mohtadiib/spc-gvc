@@ -1,4 +1,3 @@
-import {Component} from "@angular/core";
 
 export interface SideModel {
   title: string;
@@ -26,5 +25,6 @@ export interface TableData {
   customHeaders?:any
   headers?:any[];
   model?:any
+  modelAddType?:boolean
 }
 

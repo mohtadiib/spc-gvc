@@ -22,28 +22,30 @@ import {NzSkeletonModule} from "ng-zorro-antd/skeleton";
 import {NzAvatarModule} from "ng-zorro-antd/avatar";
 import {PagesComponent} from "../../pages/pages/pages.component";
 import {RouterLink} from "@angular/router";
+import {NzFormModule} from "ng-zorro-antd/form";
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    NzButtonModule,
-    NzTableModule,
-    FormsModule,
-    NzPopconfirmModule,
-    NzInputModule,
-    NzIconModule,
-    NzDividerModule,
-    NzTagModule,
-    NzSelectModule,
-    NzModalModule,
-    ReactiveFormsModule,
-    NzTabsModule,
-    NzCardModule,
-    NzSkeletonModule,
-    NzAvatarModule,
-    RouterLink,
-  ],
+    imports: [
+        CommonModule,
+        NzButtonModule,
+        NzTableModule,
+        FormsModule,
+        NzPopconfirmModule,
+        NzInputModule,
+        NzIconModule,
+        NzDividerModule,
+        NzTagModule,
+        NzSelectModule,
+        NzModalModule,
+        ReactiveFormsModule,
+        NzTabsModule,
+        NzCardModule,
+        NzSkeletonModule,
+        NzAvatarModule,
+        RouterLink,
+        NzFormModule,
+    ],
   declarations: [
     TableDataComponent,
     DataShowTypeComponent,
