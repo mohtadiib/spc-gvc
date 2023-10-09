@@ -1,4 +1,3 @@
-import {} from "../../pages/pos/pos.component";
 import {DashboardComponent} from "../../pages/dashboard/dashboard.component";
 
 class DataSources{

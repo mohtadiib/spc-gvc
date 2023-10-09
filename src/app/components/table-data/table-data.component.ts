@@ -1,7 +1,7 @@
 import {Component, HostListener, Input, OnChanges, OnInit } from '@angular/core';
 import {TableDataService} from "./table-data.service";
 import {TableData} from "../../common/data_sources/side-model";
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 
 @Component({
