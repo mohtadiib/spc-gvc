@@ -12,22 +12,12 @@ import {Router} from "@angular/router";
 })
 export class DashboardComponent implements OnInit{
   body:any = {
-    foreignKey:{
-      employee_id: this.authService.getToken()
-    },
     dashboard:[
-      {table:"sales",field:"total_price",user:true},
-      {table:"products"},
-      {table:"categories"},
-      {table:"outputs",field:"manyValue",user:true},
+      {table:"carstypes"},
     ]
   }
   totals:any = {
-    sales: { count:0, total:0 },
-    outputs: { count:0, total:0 },
-    products: 0,
-    categories: 0,
-    role:""
+    carstypes: [],
   }
   reportPage:boolean = this.router.url === '/report/8'
   constructor(private dataService:TableDataService,
@@ -36,7 +26,7 @@ export class DashboardComponent implements OnInit{
               private router: Router) {}
   getData(){
     this.dataService.getData(this.body).subscribe((value:any) => {
-      this.authService.isAdmin = this.getRole(value.role)
+      // console.log(value.session)
       this.totals = value
     })
   }
@@ -44,13 +34,6 @@ export class DashboardComponent implements OnInit{
   // reportPage = () => this.router.url == '/report/8'
   ngOnInit(): void {
     this.getData()
-  }
-  showConfirm(): void {
-    this.modal.confirm({
-      nzTitle: '<i>اغلاق الوردية؟</i>',
-      nzContent: '<b>يستم اغلاق الوردية واضافة سجل اجمالي في نافذة الايرادات</b>',
-      nzOnOk: () => console.log('OK'),
-    });
   }
 
 }

@@ -2,8 +2,7 @@ import {Component, HostListener, Input, OnChanges, OnInit } from '@angular/core'
 import {TableDataService} from "./table-data.service";
 import {TableData} from "../../common/data_sources/side-model";
 import { FormGroup } from '@angular/forms';
-
-
+import {NzMessageService} from "ng-zorro-antd/message";
 @Component({
   selector: 'app-table-data',
   templateUrl: './table-data.component.html',
@@ -19,7 +18,8 @@ export class TableDataComponent implements OnInit, OnChanges{
   listOfData: any[] = [];
   keysEditModel: any[] = [];
   editingObject: { recordId: string, adding: boolean } = { recordId: "",adding: false };
-  constructor(public tableApiService:TableDataService) {}
+  constructor(private message: NzMessageService,
+              public tableApiService:TableDataService) {}
   // modelData = () => this.tableData2[this.index];
   ngOnInit(): void {
     // this.getData()
@@ -27,6 +27,12 @@ export class TableDataComponent implements OnInit, OnChanges{
   ngOnChanges(): void {
     this.getData()
   }
+
+  //message
+  createMessage(type: string): void {
+    this.message.create(type, `تمت العملية بنجاح`);
+  }
+
 
   //Tables Functions *****************************
   startEdit(doc_id: string): void {
@@ -155,6 +161,7 @@ export class TableDataComponent implements OnInit, OnChanges{
       data
     ).subscribe((res)=>{
       console.log(res)
+      this.createMessage('success')
       //close focusing input
       this.tableApiService.focusField = false
       this.editingObject.adding = false;

@@ -30,7 +30,8 @@ export class DataEditTypeComponent implements OnInit, AfterViewInit{
         this.form.controls[this.keyItem].setValue(this.value);
       }
     }else {
-      if (this.value == undefined || this.header.type == 'list') {
+      if (this.value == undefined || this.header.type == 'list' ||
+        this.header.disabled) {
         this.form.addControl(this.keyItem, new FormControl({value: this.value, disabled: true}));
       }if (this.header.type == 'online_list') {
         this.form.addControl(this.keyItem, new FormControl(`${this.value.doc_id}`));

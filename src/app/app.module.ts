@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { ar_EG } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
+import {NgOptimizedImage, registerLocaleData} from '@angular/common';
 import ar from '@angular/common/locales/ar';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,22 +18,17 @@ import {NzInputModule} from "ng-zorro-antd/input";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {TableDataModule} from "./components/table-data/table-data.module";
-import { PosComponent } from './pages/pos/pos.component';
-import { CategoriesComponent } from './pages/pos/categories/categories.component';
-import { PosSideComponent } from './pages/pos/pos-side/pos-side.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import {NzFormModule} from "ng-zorro-antd/form";
 import {NzCheckboxModule} from "ng-zorro-antd/checkbox";
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import {NzMessageService} from "ng-zorro-antd/message";
 
 registerLocaleData(ar);
 
 @NgModule({
     declarations: [
         AppComponent,
-        PosComponent,
-        CategoriesComponent,
-        PosSideComponent,
         AuthComponent,
         DashboardComponent
     ],
@@ -55,9 +50,11 @@ registerLocaleData(ar);
     ReactiveFormsModule,
     NzFormModule,
     NzCheckboxModule,
+    NgOptimizedImage,
   ],
     providers: [
-        {provide: NZ_I18N, useValue: ar_EG}
+        {provide: NZ_I18N, useValue: ar_EG},
+         NzMessageService
     ],
     exports: [],
     bootstrap: [AppComponent]

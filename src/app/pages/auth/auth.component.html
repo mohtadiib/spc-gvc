@@ -1,10 +1,14 @@
 <div class="login-container">
   <div class="login">
+    <div class="logo">
+      <img src="./assets/spc_logo.png" alt="logo" height="2228" width="2228">
+    </div>
     <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
       <nz-form-item>
         <nz-form-control nzErrorTip="ادخل رقم الهاتف!">
-          <nz-input-group nzPrefixIcon="user">
-            <input type="number" nz-input formControlName="phone" nzSize="large" placeholder="رقم الهاتف" />
+          <nz-input-group nzPrefixIcon="phone">
+            <input type="number" nz-input formControlName="phone"
+                   nzSize="large" placeholder="رقم الهاتف" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>

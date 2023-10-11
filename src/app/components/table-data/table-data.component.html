@@ -7,7 +7,8 @@ tableData.modelAddType?showModal():addRow()"
 </button>
 <br />
 <br />
-<nz-table #editRowTable nzBordered [nzData]="listOfData" [nzPageSize]="10" [nzScroll]="{ y: '700px' }">
+<nz-table #editRowTable nzBordered
+          [nzData]="listOfData" [nzPageSize]="10" [nzScroll]="{ y: '350px' }">
   <thead>
   <tr>
     <th *ngFor="let item of tableData.headers">
@@ -27,7 +28,8 @@ tableData.modelAddType?showModal():addRow()"
         />
       </td>
       <td>
-        <a *ngIf="tableData.router!.second" [routerLink]="tableData.router!.second+'/'+data.doc_id">
+        <a *ngIf="tableData.router!.second"
+           [routerLink]="tableData.router!.second+'/'+data.doc_id">
           <span nz-icon nzType="eye" nzTheme="outline" style="font-size: 18px;color: #808080FF"></span>
         </a>
         <nz-divider nzType="vertical"></nz-divider>
@@ -61,13 +63,15 @@ tableData.modelAddType?showModal():addRow()"
 </nz-table>
 <br />
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="سجل جديد" (nzOnCancel)="handleCancel()"
+<nz-modal
+  [nzStyle]="{ top: '20px' }"
+  [(nzVisible)]="isVisible" nzTitle="سجل جديد" (nzOnCancel)="handleCancel()"
           (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>
     <form nz-form [formGroup]="form" (ngSubmit)="submitForm()">
       <nz-form-item *ngFor="let keyItem of keysEditModel; let i = index">
-        <nz-form-label [nzSpan]="5" nzRequired nzFor="{{keyItem}}">{{tableData.headers![i].name}}</nz-form-label>
-        <nz-form-control [nzSpan]="12" nzErrorTip="Please input your username!">
+        <nz-form-label *ngIf="!tableData.headers![i].disabled" [nzSpan]="5" nzRequired nzFor="{{keyItem}}">{{tableData.headers![i].name}}</nz-form-label>
+        <nz-form-control *ngIf="!tableData.headers![i].disabled" [nzSpan]="12" nzErrorTip="Please input your username!">
           <app-data-edit-type
             [header]="tableData.headers![i]"
             [value]="editingObject.recordId?
@@ -76,24 +80,6 @@ tableData.modelAddType?showModal():addRow()"
           ></app-data-edit-type>
         </nz-form-control>
       </nz-form-item>
-      <!--      <nz-form-item>-->
-      <!--        <nz-form-label [nzSpan]="5" nzFor="gender" nzRequired>Gender</nz-form-label>-->
-      <!--        <nz-form-control [nzSpan]="12" nzErrorTip="Please select your gender!">-->
-      <!--          <nz-select-->
-      <!--            id="gender"-->
-      <!--            formControlName="gender"-->
-      <!--            nzPlaceHolder="Select a option and change input text above"-->
-      <!--          >-->
-      <!--            <nz-option nzValue="male" nzLabel="male"></nz-option>-->
-      <!--            <nz-option nzValue="female" nzLabel="female"></nz-option>-->
-      <!--          </nz-select>-->
-      <!--        </nz-form-control>-->
-      <!--      </nz-form-item>-->
-      <!--      <nz-form-item>-->
-      <!--        <nz-form-control [nzSpan]="12" [nzOffset]="5">-->
-      <!--          <button nz-button nzType="primary">Submit</button>-->
-      <!--        </nz-form-control>-->
-      <!--      </nz-form-item>-->
     </form>
   </ng-container>
 </nz-modal>

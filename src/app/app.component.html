@@ -1,22 +1,27 @@
 <nz-layout class="app-layout">
   <nz-sider *ngIf="!logged()" nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
     <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-<!--        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">-->
-        <h1>Alaman Cpanel</h1>
+      <a href="#">
+        <img src="./assets/spc_logo.png" alt="logo">
+        <h1>SPC VC</h1>
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline">
-      <li (click)="checkRoute()" *ngFor="let siteItem of sideBarList" nz-menu-item>
+      <li (click)="checkRoute()" *ngFor="let siteItem of authService.sideBarList"
+          nz-menu-item>
         <span nz-icon [nzType]="siteItem.icon"></span>
         <span [className]="siteItem.title == 'POS'?'en-font':''">{{siteItem.title}}</span>
         <a [routerLink]="siteItem.router+'/'+siteItem.index"></a>
       </li>
+      <li style="position:absolute;;bottom: 20px" (click)="authService.logout()" nz-menu-item>
+        <span nz-icon nzType="logout"></span>
+        <span>تسجيل خروج</span>
+      </li>
     </ul>
-    <button (click)="authService.logout()" nz-button nzType="text" nzDanger>
-      <span nz-icon nzType="logout"></span>
-      <span *ngIf="getRoute() != '/pos/3'">تسجل خروج</span>
-    </button>
+<!--    <button (click)="authService.logout()" nz-button nzType="text" nzDanger>-->
+<!--      <span nz-icon nzType="logout"></span>-->
+<!--      <span *ngIf="getRoute() != '/pos/3'">تسجل خروج</span>-->
+<!--    </button>-->
   </nz-sider>
   <nz-layout>
     <nz-header *ngIf="getRoute() != '/pos/3' && !logged()">
@@ -26,6 +31,10 @@
                nz-icon
                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             ></span>
+        </span>
+        <span class="header-trigger left-0">
+          <span style="font-size: 12px;font-weight: bold"
+                class="trigger user-header">{{authService.username}}</span>
         </span>
       </div>
     </nz-header>

@@ -1,46 +1,27 @@
+
 <div class="cards">
-  <div class="card">
+  <div
+    style="background-color: #e1e4ff;color: #0820b1;border: 1px white solid"
+    class="card">
     <div>
       <div>
-        {{totals.products}}
+        {{totals.carstypesCount}}
       </div>
       <div>
-        عدد الاصناف
+        عدد المركبات
       </div>
     </div>
-    <span nz-icon nzType="compress"></span>
+    <span nz-icon nzType="car"></span>
   </div>
-  <div class="card">
+  <div class="card" *ngFor="let type of totals.carstypes; let i = index">
     <div>
       <div>
-        {{totals.sales.total}}
+        {{type.count}}
       </div>
       <div>
-        اجمالي المبيعات
+        {{type.name}}
       </div>
     </div>
-    <span nz-icon nzType="shopping-cart"></span>
-  </div>
-  <div class="card">
-    <div>
-      <div>
-        {{totals.outputs.total ?? 0}}
-      </div>
-      <div>
-        اجمالي المنصرفات
-      </div>
-    </div>
-    <span nz-icon nzType="switcher"></span>
-  </div>
-  <div *ngIf="!reportPage" (click)="showConfirm()" class="card">
-    <div>
-      <div>
-        اغلاق الوردية
-      </div>
-      <div>
-        سيتم تخزين هذا السجل في نافذة الايرادات
-      </div>
-    </div>
-    <span nz-icon nzType="logout"></span>
+    <span nz-icon nzType="car"></span>
   </div>
 </div>

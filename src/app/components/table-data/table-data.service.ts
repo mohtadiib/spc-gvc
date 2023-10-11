@@ -10,8 +10,9 @@ import {AuthService} from "../../services/auth.service";
 export class TableDataService {
   focusField:boolean = false
   constructor(private http:HttpClient, private authService:AuthService) { }
-  getData(body:any,method:string = ""): Observable<any[]>{
-    // console.log(JSON.stringify(body))
+  getData(body:any,method:string = ""): Observable<any[]> {
+    body.sessionId = this.authService.getToken()
+    console.log(JSON.stringify(body))
     return this.http.post<any[]>(GlobalVariable.BASE_API_URL+method,body);
   }
   saveData(table:any,adding:boolean,data:any,docIidSet:boolean = false){
@@ -22,14 +23,14 @@ export class TableDataService {
       }
       method = 'insert/';
     }
-    data.employee_id = this.authService.getToken()
     let body = {
       table:typeof table == "string"?table:table.table,
       id:data.id,
       data:data,
-      foreignField:table.foreignField!
+      foreignField:table.foreignField!,
+      sessionId: this.authService.getToken()
     };
-    console.log(JSON.stringify(body))
+    // console.log(JSON.stringify(body))
     return this.http.post<any[]>(GlobalVariable.BASE_API_URL+method,body);
   }
   deleteRecord(table:string,recordId:string){

@@ -28,7 +28,8 @@
 }
 
 .cards .card:hover{
-  background-color: #f2ffee;
+  background-color: rgb(250, 250, 250);
+  border: 1px white solid
 }
 
 
@@ -37,7 +38,7 @@
   width: 90%;
 }
 .cards .card div div:first-child{
-  color: #389d11;
+  color: #0820b1;
 }
 
 .cards .card div div:last-child{

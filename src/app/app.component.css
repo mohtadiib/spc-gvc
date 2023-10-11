@@ -92,3 +92,7 @@ nz-content {
   margin-bottom: 12px;
 }
 
+.user-header{
+  float: left;
+  margin-left: 20px;
+}
