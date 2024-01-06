@@ -23,6 +23,7 @@ import {NzFormModule} from "ng-zorro-antd/form";
 import {NzCheckboxModule} from "ng-zorro-antd/checkbox";
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import {NzMessageService} from "ng-zorro-antd/message";
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 registerLocaleData(ar);
 
@@ -54,7 +55,8 @@ registerLocaleData(ar);
   ],
     providers: [
         {provide: NZ_I18N, useValue: ar_EG},
-         NzMessageService
+         NzMessageService,
+         {provide: LocationStrategy, useClass: HashLocationStrategy}
     ],
     exports: [],
     bootstrap: [AppComponent]
